@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.util.Arrays;
 
 @SpringBootApplication
-public class TrabalhofinalApplication implements CommandLineRunner {
+public class TrabalhofinalApplication extends SpringBootServletInitializer implements CommandLineRunner  {
 	@Autowired
 	private DenunciaRepository denunciaRepository;
 
