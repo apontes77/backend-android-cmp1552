@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 import java.util.Arrays;
@@ -18,6 +19,11 @@ public class TrabalhofinalApplication extends SpringBootServletInitializer imple
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrabalhofinalApplication.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(TrabalhofinalApplication.class);
 	}
 
 	@Override

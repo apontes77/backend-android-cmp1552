@@ -70,7 +70,8 @@
 
 	<build>
 		<plugins>
-			<plugin><!-- don't pack the war  -->
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<executions>
