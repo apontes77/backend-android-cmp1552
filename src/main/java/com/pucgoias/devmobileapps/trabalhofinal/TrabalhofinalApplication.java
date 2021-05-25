@@ -3,6 +3,7 @@ package com.pucgoias.devmobileapps.trabalhofinal;
 import com.pucgoias.devmobileapps.trabalhofinal.models.Denuncia;
 import com.pucgoias.devmobileapps.trabalhofinal.repositories.DenunciaRepository;
 import com.pucgoias.devmobileapps.trabalhofinal.services.DenunciaService;
+import com.pucgoias.devmobileapps.trabalhofinal.services.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,18 +14,17 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import java.util.Arrays;
 
 @SpringBootApplication
-public class TrabalhofinalApplication extends SpringBootServletInitializer implements CommandLineRunner  {
+public class TrabalhofinalApplication implements CommandLineRunner  {
 	@Autowired
 	private DenunciaRepository denunciaRepository;
+
+	@Autowired
+	private S3Service s3Service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrabalhofinalApplication.class, args);
 	}
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(TrabalhofinalApplication.class);
-	}
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -39,5 +39,6 @@ public class TrabalhofinalApplication extends SpringBootServletInitializer imple
 
 		denunciaRepository.saveAll(Arrays.asList(denuncia1, denuncia2));
 
+		s3Service.uploadFile("C:\\Users\\alepq\\Pictures\\teste-infracao.jpg");
 	}
 }
