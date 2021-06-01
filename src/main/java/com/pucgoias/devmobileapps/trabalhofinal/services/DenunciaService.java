@@ -1,11 +1,15 @@
 package com.pucgoias.devmobileapps.trabalhofinal.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pucgoias.devmobileapps.trabalhofinal.models.Denuncia;
 import com.pucgoias.devmobileapps.trabalhofinal.repositories.DenunciaRepository;
-import com.pucgoias.devmobileapps.trabalhofinal.services.exceptions.ObjectNotFoundException;
+import com.pucgoias.devmobileapps.trabalhofinal.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,8 @@ import java.util.Optional;
 public class DenunciaService {
     @Autowired
     private DenunciaRepository denunciaRepository;
+    @Autowired
+    private S3Service s3Service;
 
     public List<Denuncia> obterTodas() {
        return denunciaRepository.findAll();
@@ -48,5 +54,19 @@ public class DenunciaService {
         newObj.setTituloDenuncia(obj.getTituloDenuncia());
         newObj.setCorpoDenuncia(obj.getCorpoDenuncia());
         newObj.setUrlFotoDenuncia(obj.getUrlFotoDenuncia());
+    }
+
+    public URI realizaUploadDeImagemDaDenuncia(MultipartFile multipartFile, String denunciaAEnviar) {
+        URI uri = s3Service.uploadFile(multipartFile);
+        Denuncia denunciaJson = new Denuncia();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            denunciaJson = objectMapper.readValue(denunciaAEnviar, Denuncia.class);
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        denunciaJson.setUrlFotoDenuncia(uri.toString());
+        this.salvar(denunciaJson);
+        return uri;
     }
 }

@@ -1,4 +1,4 @@
-package com.pucgoias.devmobileapps.trabalhofinal.services.exceptions;
+package com.pucgoias.devmobileapps.trabalhofinal.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 
