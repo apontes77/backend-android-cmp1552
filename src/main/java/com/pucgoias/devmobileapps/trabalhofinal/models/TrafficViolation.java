@@ -13,24 +13,24 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "tb_denuncia")
+@Table(name = "tb_traffic_violation")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Denuncia {
+public class TrafficViolation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value = "Código da denúncia")
     private Integer id;
     @ApiModelProperty(value = "título da denúncia")
-    private String tituloDenuncia;
+    private String title;
     @ApiModelProperty(value = "Descrição da denúncia")
-    private String corpoDenuncia;
+    private String description;
     @ApiModelProperty(value = "Foto do local no qual a infração foi cometida")
-    private String urlFotoDenuncia;
+    private String photo;
 
 }

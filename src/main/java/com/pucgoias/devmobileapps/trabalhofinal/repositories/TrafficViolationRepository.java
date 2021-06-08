@@ -1,6 +1,6 @@
 package com.pucgoias.devmobileapps.trabalhofinal.repositories;
 
-import com.pucgoias.devmobileapps.trabalhofinal.models.Denuncia;
+import com.pucgoias.devmobileapps.trabalhofinal.models.TrafficViolation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * são geradas pelo próprio Spring Data JPA.
  */
 @Repository
-public interface DenunciaRepository extends JpaRepository<Denuncia, Integer> {
+public interface TrafficViolationRepository extends JpaRepository<TrafficViolation, Integer> {
 }

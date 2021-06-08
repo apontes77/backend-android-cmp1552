@@ -1,8 +1,8 @@
 package com.pucgoias.devmobileapps.trabalhofinal.controllers;
 
 
-import com.pucgoias.devmobileapps.trabalhofinal.models.Denuncia;
-import com.pucgoias.devmobileapps.trabalhofinal.services.DenunciaService;
+import com.pucgoias.devmobileapps.trabalhofinal.models.TrafficViolation;
+import com.pucgoias.devmobileapps.trabalhofinal.services.TrafficViolationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -21,11 +21,11 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("api/v1/denuncias")
-public class DenunciaController {
+@RequestMapping("api/v1/traffic-violation")
+public class TrafficViolationController {
 
     @Autowired
-    private DenunciaService denunciaService;
+    private TrafficViolationService trafficViolationService;
 
     @ApiOperation(value = "Retorna uma lista de denúncias")
     @ApiResponses(value = {
@@ -33,10 +33,10 @@ public class DenunciaController {
             @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
-    @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Denuncia>> listarDenuncias () {
-        List<Denuncia> denuncias = denunciaService.obterTodas();
-        return ResponseEntity.ok().body(denuncias);
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TrafficViolation>> listTrafficViolations() {
+        List<TrafficViolation> trafficViolations = trafficViolationService.getAll();
+        return ResponseEntity.ok().body(trafficViolations);
     }
 
 
@@ -46,24 +46,13 @@ public class DenunciaController {
             @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
-    @PatchMapping(value="/denuncia")
-    public ResponseEntity<Void> alterarDenuncia( @RequestBody Denuncia denuncia){
-        Denuncia obj = denunciaService.alterarDenuncia(denuncia);
-        obj.setId(denuncia.getId());
+    @PatchMapping(value="/violation")
+    public ResponseEntity<Void> updateTrafficViolation(@RequestBody TrafficViolation trafficViolation){
+        TrafficViolation obj = trafficViolationService.updateViolation(trafficViolation);
+        obj.setId(trafficViolation.getId());
         return ResponseEntity.noContent().build();
     }
 
-    @ApiOperation(value = "Permite a inserção de denúncias de infrações de trânsito sem imagem associada")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Insere uma nova denúncia de infração sem imagem"),
-            @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
-            @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
-    })
-    @PostMapping(value = "/salvar")
-    public ResponseEntity<Denuncia> inserirDenuncia(@RequestBody Denuncia denuncia) {
-        Denuncia denunciaAInserir = denunciaService.salvar(denuncia);
-        return ResponseEntity.ok().body(denunciaAInserir);
-    }
 
     @ApiOperation(value = "Insere uma denúncia de infração com imagem associada.")
     @ApiResponses(value = {
@@ -71,17 +60,17 @@ public class DenunciaController {
             @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
-    @PostMapping(value = "/imagem",
+    @PostMapping(value = "/save",
                 consumes = {
                         MediaType.MULTIPART_FORM_DATA_VALUE,
                         MediaType.APPLICATION_JSON_VALUE
                 },
                 produces = { MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<?> uploadImagemDenuncia(
+    public ResponseEntity<?> insertTrafficViolation(
             @RequestPart(name="file") MultipartFile file,
             @RequestPart(name = "json") String denuncia) {
 
-        URI uri = denunciaService.realizaUploadDeImagemDaDenuncia(file, denuncia);
+        URI uri = trafficViolationService.makeImageUpload(file, denuncia);
         return ResponseEntity.created(uri).build();
     }
 
@@ -91,9 +80,9 @@ public class DenunciaController {
             @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> excluirDenuncia(@PathVariable Integer id) {
-        denunciaService.excluirPorId(id);
+    @DeleteMapping(value = "/violation/{id}")
+    public ResponseEntity<Void> deleteTrafficViolation(@PathVariable Integer id) {
+        trafficViolationService.deleteByID(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -1,10 +1,8 @@
 package com.pucgoias.devmobileapps.trabalhofinal.controllers;
 
 
-import com.pucgoias.devmobileapps.trabalhofinal.models.Denuncia;
-import com.pucgoias.devmobileapps.trabalhofinal.models.Usuario;
-import com.pucgoias.devmobileapps.trabalhofinal.services.DenunciaService;
-import com.pucgoias.devmobileapps.trabalhofinal.services.UsuarioService;
+import com.pucgoias.devmobileapps.trabalhofinal.models.User;
+import com.pucgoias.devmobileapps.trabalhofinal.services.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -12,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -24,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/usuarios")
-public class UsuarioController {
+public class UserController {
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UserService userService;
 
     @ApiOperation(value = "Retorna uma lista de usuários")
     @ApiResponses(value = {
@@ -36,9 +32,9 @@ public class UsuarioController {
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
     @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Usuario>> listarUsuarios () {
-        List<Usuario> usuarios = usuarioService.obterTodas();
-        return ResponseEntity.ok().body(usuarios);
+    public ResponseEntity<List<User>> listarUsuarios () {
+        List<User> users = userService.getAll();
+        return ResponseEntity.ok().body(users);
     }
 
     @ApiOperation(value = "Permite a inserção de usuários")
@@ -48,8 +44,8 @@ public class UsuarioController {
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
     @PostMapping(value = "/salvar")
-    public ResponseEntity<Usuario> inserirUsuario(@RequestBody Usuario usuario) {
-        Usuario usuarioAInserir = usuarioService.salvar(usuario);
-        return ResponseEntity.ok().body(usuarioAInserir);
+    public ResponseEntity<User> inserirUsuario(@RequestBody User user) {
+        User userAInserir = userService.saveUser(user);
+        return ResponseEntity.ok().body(userAInserir);
     }
 }
