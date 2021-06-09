@@ -19,9 +19,8 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("api/v1/usuarios")
+@RequestMapping("api/v1/users")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
@@ -32,9 +31,19 @@ public class UserController {
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
     @GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> listarUsuarios () {
+    public ResponseEntity<List<User>> listUsers() {
         List<User> users = userService.getAll();
         return ResponseEntity.ok().body(users);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login (@RequestBody User user) {
+
+        final boolean isLogged = userService.login(user);
+        if (isLogged) {
+            return ResponseEntity.ok().build();
+        }
+       return ResponseEntity.notFound().build();
     }
 
     @ApiOperation(value = "Permite a inserção de usuários")
@@ -43,9 +52,9 @@ public class UserController {
             @ApiResponse(code = 403, message = "Sem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerado um comportamento inesperado"),
     })
-    @PostMapping(value = "/salvar")
-    public ResponseEntity<User> inserirUsuario(@RequestBody User user) {
-        User userAInserir = userService.saveUser(user);
-        return ResponseEntity.ok().body(userAInserir);
+    @PostMapping(value = "/save")
+    public ResponseEntity<User> insertUser(@RequestBody User user) {
+        User userToInsert = userService.saveUser(user);
+        return ResponseEntity.ok().body(userToInsert);
     }
 }

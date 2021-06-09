@@ -4,6 +4,9 @@ package com.pucgoias.devmobileapps.trabalhofinal.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_user")
@@ -17,6 +20,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Min(12)
+    @Max(40)
+    @NotBlank
     private String login;
+    @Min(8)
+    @Max(12)
+    @NotBlank
     private String password;
+    @Max(11)
+    @NotBlank
+    private String CPF;
 }

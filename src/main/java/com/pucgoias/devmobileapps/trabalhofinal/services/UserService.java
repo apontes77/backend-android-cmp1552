@@ -3,6 +3,7 @@ package com.pucgoias.devmobileapps.trabalhofinal.services;
 import com.pucgoias.devmobileapps.trabalhofinal.exceptions.ObjectNotFoundException;
 import com.pucgoias.devmobileapps.trabalhofinal.models.User;
 import com.pucgoias.devmobileapps.trabalhofinal.repositories.UserRepository;
+import com.pucgoias.devmobileapps.trabalhofinal.validations.Validations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,22 @@ public class UserService {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + User.class.getName()));
+    }
+
+    public boolean login(User user) {
+        List<User> users = getAll();
+        final Optional<User> firstUserFound = users.stream()
+                                                .filter(u -> u.getLogin() == user.getLogin())
+                                                .filter(u -> u.getPassword() == user.getPassword())
+                                                .findFirst();
+
+        if(!firstUserFound.equals(Optional.empty())) {
+            if (Validations.validateEmail(firstUserFound.get().getLogin())
+                    && Validations.validatePassword(firstUserFound.get().getPassword())){
+                return true;
+            }
+        }
+        return false;
     }
 
     public User saveUser(User user) {
