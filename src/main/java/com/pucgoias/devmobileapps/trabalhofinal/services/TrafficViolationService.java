@@ -10,6 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +70,7 @@ public class TrafficViolationService {
             System.out.println(e.getMessage());
         }
         trafficViolationJson.setPhoto(uri.toString());
+
         this.save(trafficViolationJson);
         return uri;
     }

@@ -20,15 +20,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Min(12)
-    @Max(40)
     @NotBlank
     private String login;
-    @Min(8)
-    @Max(12)
     @NotBlank
     private String password;
-    @Max(11)
     @NotBlank
-    private String CPF;
+    private String cpf;
 }
