@@ -20,10 +20,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank
+
     private String login;
-    @NotBlank
+
     private String password;
-    @NotBlank
+
     private String cpf;
 }

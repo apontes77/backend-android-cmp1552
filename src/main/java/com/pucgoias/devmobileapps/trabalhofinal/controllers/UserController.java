@@ -37,11 +37,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login (@RequestBody User user) {
-
+    public ResponseEntity<User> login (@RequestBody User user) {
         final boolean isLogged = userService.login(user);
         if (isLogged) {
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(user);
         }
        return ResponseEntity.notFound().build();
     }

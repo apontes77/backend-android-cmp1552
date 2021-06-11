@@ -32,18 +32,13 @@ public class UserService {
     }
 
     public boolean login(User user) {
-        List<User> users = getAll();
-        final Optional<User> firstUserFound = users.stream()
-                                                .filter(u -> u.getLogin() == user.getLogin())
-                                                .filter(u -> u.getPassword() == user.getPassword())
-                                                .findFirst();
-
-        if(!firstUserFound.equals(Optional.empty())) {
-            if (Validations.validateEmail(firstUserFound.get().getLogin())
-                    && Validations.validatePassword(firstUserFound.get().getPassword())){
-                return true;
+        for (User u: getAll()) {
+                if(user.getLogin().equals(u.getLogin())){
+                    if(user.getPassword().equals(u.getPassword())){
+                        return true;
+                    }
+                }
             }
-        }
         return false;
     }
 
