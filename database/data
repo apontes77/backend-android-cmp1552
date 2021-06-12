@@ -1,0 +1,24 @@
+INSERT INTO tb_traffic_violation
+(title, description, photo, distance, value)
+VALUES
+('some title', 'some description', 'https://app-infracoes-transito.s3.us-east-2.amazonaws.com/exemplo.png', 15.0, 25.90);
+
+INSERT INTO tb_traffic_violation
+(title, description, photo, distance, value)
+VALUES
+('some title', 'some description', 'https://app-infracoes-transito.s3.us-east-2.amazonaws.com/fila-carros.jpg', 15.0, 25.90);
+
+INSERT INTO tb_traffic_violation
+(title, description, photo, distance, value)
+VALUES
+('some title', 'some description', 'https://app-infracoes-transito.s3.us-east-2.amazonaws.com/imagem1.png', 15.0, 25.90);
+
+INSERT INTO tb_traffic_violation
+(title, description, photo, distance, value)
+VALUES
+('some title', 'some description', 'https://app-infracoes-transito.s3.us-east-2.amazonaws.com/images.png', 15.0, 25.90);
+
+INSERT INTO tb_traffic_violation
+(title, description, photo, distance, value)
+VALUES
+('some title', 'some description', 'https://app-infracoes-transito.s3.us-east-2.amazonaws.com/novoteste.jpg', 15.0, 25.90);

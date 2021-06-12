@@ -30,19 +30,26 @@ public class TrafficViolation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value = "Código da denúncia")
+    @Column(name = "id")
     private Integer id;
     @ApiModelProperty(value = "título da denúncia")
+    @Column(name = "title")
     private String title;
     @ApiModelProperty(value = "Descrição da denúncia")
+    @Column(name = "description")
     private String description;
-    @ApiModelProperty(value = "Data da Ocorrência da Infração de Trânsito")
-    @JsonFormat
-            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-    private Date dateOfOccurrenceInfraction;
+//    @ApiModelProperty(value = "Data da Ocorrência da Infração de Trânsito")
+//    @JsonFormat
+//            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+//    @Column(name = "dateOccurrence")
+//    private Date dateOfOccurrenceInfraction;
     @ApiModelProperty(value = "Foto do local no qual a infração foi cometida")
+    @Column(name = "photo")
     private String photo;
     @ApiModelProperty(value = "Distância aproximada na qual a infração foi cometida")
+    @Column(name = "distance")
     private Double violationDistance;
     @ApiModelProperty(value = "Valor proposto pelo cidadão/cidadã para cobrança da multa")
+    @Column(name = "value")
     private Double proposalAmountTrafficTicket;
 }
